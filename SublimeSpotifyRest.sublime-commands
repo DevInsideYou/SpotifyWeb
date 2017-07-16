@@ -1,0 +1,6 @@
+[
+  {
+    "caption": "Spotify: Settings",
+    "command": "sublime_spotify_rest_settings"
+  }
+]
