@@ -40,3 +40,6 @@ class SettingsManager:
     settings_window.focus_group(1) # focus the right group
 
     settings_window.open_file("{}/User/{}".format(packages, self.__settings_file_name))
+
+  def display_message(self, message):
+    sublime.active_window().status_message(message)

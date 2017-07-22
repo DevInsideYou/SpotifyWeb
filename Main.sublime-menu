@@ -16,6 +16,10 @@
             "children":
             [
               {
+                "caption": "Enable/Disable",
+                "command": "sublime_spotify_toggle"
+              },
+              {
                 "caption": "Settings",
                 "command": "sublime_spotify_rest_settings"
               }
