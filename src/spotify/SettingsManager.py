@@ -39,5 +39,5 @@ class SettingsManager:
     return not self.is_enabled()
 
   def toggle(self):
-    self.__write("SublimeSpotifyRest_boolean_is_enabled", not self.is_enabled())
+    self.__write("SublimeSpotifyRest_bool_is_enabled", not self.is_enabled())
 

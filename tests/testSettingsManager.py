@@ -52,7 +52,7 @@ class TestSettingsManager(unittest.TestCase):
     self.__test_default_is_enabled(lambda key: None)
 
   def test_is_enabled_should_default_to_False_if_input_is_not_bool(self):
-    self.__test_default_is_enabled(lambda key: "bool")
+    self.__test_default_is_enabled(lambda key: "not bool")
 
   def test_is_enabled_should_be_a_valid_bool(self):
     self.__test_valid_is_enabled(True)
