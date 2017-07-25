@@ -14,7 +14,7 @@ class SettingsManager:
   def __refresh_interval_in_seconds(self, default):
     actual = self.__read("SublimeSpotifyRest_int_refresh_interval_in_seconds")
 
-    if (1 <= actual <= 15):
+    if 1 <= actual <= 15:
       return actual
     else:
       return default
@@ -28,12 +28,15 @@ class SettingsManager:
       return default
       
   def __is_enabled(self, default):
-    actual = self.__read("SublimeSpotifyRest_boolean_is_enabled")
+    actual = self.__read("SublimeSpotifyRest_bool_is_enabled")
 
     if not isinstance(actual, bool):
       return default
     else:
       return actual
+
+  def is_disabled(self):
+    return not self.is_enabled()
 
   def toggle(self):
     self.__write("SublimeSpotifyRest_boolean_is_enabled", not self.is_enabled())
