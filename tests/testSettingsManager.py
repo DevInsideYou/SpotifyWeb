@@ -58,6 +58,30 @@ class TestSettingsManager(unittest.TestCase):
     self.__test_valid_is_enabled(True)
     self.__test_valid_is_enabled(False)
 
+  def test_toggle(self):
+    actualKey = "SublimeSpotifyRest_bool_is_enabled"
+    actualValue = True
+
+    def read(key):
+      return actualValue
+
+    def write(key, value):
+      nonlocal actualKey
+      actualKey = key
+
+      nonlocal actualValue
+      actualValue = value
+
+    loader = SettingsManager(FakeReaderWriter(read, write))
+
+    loader.toggle()
+    self.assertEqual(actualKey, "SublimeSpotifyRest_bool_is_enabled")
+    self.assertEqual(actualValue, False)
+    
+    loader.toggle()
+    self.assertEqual(actualKey, "SublimeSpotifyRest_bool_is_enabled")
+    self.assertEqual(actualValue, True)
+
   def __throw_up(self):
     raise Exception
 
