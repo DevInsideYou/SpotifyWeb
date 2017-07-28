@@ -26,8 +26,8 @@ class SettingsManager:
     settings_window = sublime.active_window()
 
     left_right_group = {
-      "cols": [0.0, 0.5, 1.0], 
-      "rows": [0.0, 1.0], 
+      "cols": [0.0, 0.5, 1.0],
+      "rows": [0.0, 1.0],
       "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
     }
 

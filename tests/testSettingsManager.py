@@ -16,6 +16,35 @@ sys.path.append(
 from SettingsManager import SettingsManager
 
 class TestSettingsManager(unittest.TestCase):
+  def test_redirect_port_should_default_to_8080_if_load_settings_raises_an_exception(self):
+    self.__test_default_redirect_port(lambda key: self.__throw_up())
+
+  def test_redirect_port_should_default_to_8080_if_it_is_not_specified(self):
+    self.__test_default_redirect_port(lambda key: None)
+
+  def test_redirect_port_should_default_to_8080_if_it_is_not_int(self):
+    self.__test_default_redirect_port(lambda key: "not int")
+
+  def test_redirect_port_should_default_to_8080_if_input_is_less_than_1024(self):
+    minimum = 1024
+
+    self.__test_default_redirect_port(lambda key: minimum - 1)
+    self.__test_default_redirect_port(lambda key: random.randint(-123456789, minimum - 1))
+
+  def test_redirect_port_should_default_to_8080_if_input_is_greater_than_65535(self):
+    maximum = 65535
+
+    self.__test_default_redirect_port(lambda key: maximum + 1)
+    self.__test_default_redirect_port(lambda key: random.randint(maximum + 1, 123456789))
+
+  def test_redirect_port_should_be_a_valid_integer_between_1024_and_65535(self):
+    minimum = 1024
+    maximum = 65535
+
+    self.__test_valid_redirect_port(minimum)
+    self.__test_valid_redirect_port(maximum)
+    self.__test_valid_redirect_port(random.randint(minimum, maximum))
+
   def test_refresh_interval_in_seconds_should_default_to_5_if_load_settings_raises_an_exception(self):
     self.__test_default_refresh_interval_in_seconds(lambda key: self.__throw_up())
 
@@ -77,13 +106,23 @@ class TestSettingsManager(unittest.TestCase):
     loader.toggle()
     self.assertEqual(actualKey, "SublimeSpotifyRest_bool_is_enabled")
     self.assertEqual(actualValue, False)
-    
+
     loader.toggle()
     self.assertEqual(actualKey, "SublimeSpotifyRest_bool_is_enabled")
     self.assertEqual(actualValue, True)
 
   def __throw_up(self):
     raise Exception
+
+  def __test_default_redirect_port(self, load_settings):
+    loader = SettingsManager(FakeReaderWriter(read = load_settings))
+    actual = loader.redirect_port()
+    self.assertEquals(actual, 8080)
+
+  def __test_valid_redirect_port(self, expected):
+    loader = SettingsManager(FakeReaderWriter(read = lambda key: expected))
+    actual = loader.redirect_port()
+    self.assertEqual(actual, expected)
 
   def __test_default_refresh_interval_in_seconds(self, load_settings):
     loader = SettingsManager(FakeReaderWriter(read = load_settings))

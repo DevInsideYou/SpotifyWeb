@@ -3,6 +3,22 @@ class SettingsManager:
     self.__read = reader_writer.read_setting
     self.__write = reader_writer.write_setting
 
+  def redirect_port(self):
+    default = 8080
+
+    try:
+      return self.__redirect_port(default)
+    except:
+      return default
+
+  def __redirect_port(self, default):
+    actual = self.__read("SublimeSpotifyRest_int_redirect_port")
+
+    if 1024 <= actual <= 65535:
+      return actual
+    else:
+      return default
+
   def refresh_interval_in_seconds(self):
     default = 5
 
@@ -26,7 +42,7 @@ class SettingsManager:
       return self.__is_enabled(default)
     except:
       return default
-      
+
   def __is_enabled(self, default):
     actual = self.__read("SublimeSpotifyRest_bool_is_enabled")
 
