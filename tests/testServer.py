@@ -12,16 +12,16 @@ sys.path.append(
   )
 )
 
-from Server import Server
-
 import unittest
+
+from Server import Server
 
 class TestServer(unittest.TestCase):
   def test_roundtrip(self):
     oauth2_url = "some url"
     redirect_port = 1337
 
-    def send_http_request_to_self(): # http://localhost:1337
+    def send_http_request_to_self():
       urllib.request.urlopen("http://localhost:{}/".format(str(redirect_port))).read()
 
     def send_oauth2_request(url):
