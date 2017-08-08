@@ -75,3 +75,24 @@ class TestSpotify(unittest.TestCase):
 
     spotify.run_once(client, send_oauth2_request, get_redirect_response)
     self.assertEqual(actual, "some track name")
+
+  def test_if_currently_playing_track_name_raises_an_exception_the_message_should_be_delegated_to_the_side_effect_function(self):
+    class FakeClient:
+      def get_cached_token(self):
+        return "some fake token"
+
+      def currently_playing_track_name(self, token):
+        raise Exception("exception message")
+
+    client = FakeClient()
+
+    actual = ""
+
+    def side_effect(message):
+      nonlocal actual
+      actual = message
+
+    spotify = Spotify(side_effect)
+
+    spotify.run_once(client, send_oauth2_request = None, get_redirect_response = None)
+    self.assertEqual(actual, "exception message")

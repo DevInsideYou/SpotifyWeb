@@ -20,7 +20,7 @@ class Spotify:
         try:
           self.__side_effect(client.currently_playing_track_name(valid_token))
         except Exception as e:
-          self.__side_effect(e)
+          self.__side_effect(str(e))
 
       def authenticate_to_get_fresh_token():
         get_redirect_response(
