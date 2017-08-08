@@ -6,22 +6,25 @@ class Spotify:
     def run_once():
       def side_effect_current_track_name_using_cached_token():
         side_effect_current_track_name(
-          client.get_cached_token(),
+          token = client.get_cached_token(),
           fallback = authenticate_to_get_fresh_token
         )
 
       def side_effect_current_track_name(token, fallback):
         if(token):
-          try:
-            self.__side_effect(client.currently_playing_track_name(token))
-          except Exception as e:
-            self.__side_effect(e)
+          try_side_effect_current_track_name(token)
         else:
           fallback()
 
+      def try_side_effect_current_track_name(valid_token):
+        try:
+          self.__side_effect(client.currently_playing_track_name(valid_token))
+        except Exception as e:
+          self.__side_effect(e)
+
       def authenticate_to_get_fresh_token():
         get_redirect_response(
-          send_oauth2_request,
+          send_oauth2_request = send_oauth2_request,
           oauth2_url = client.get_oauth2_url(),
           redirect_port = client.redirect_port,
           handle = side_effect_current_track_name_using_fresh_token,
@@ -31,7 +34,7 @@ class Spotify:
       def side_effect_current_track_name_using_fresh_token(spotify_redirect_response):
         try:
           side_effect_current_track_name(
-            client.get_fresh_token(spotify_redirect_response),
+            token = client.get_fresh_token(spotify_redirect_response),
             fallback = side_effect_error
           )
         except:

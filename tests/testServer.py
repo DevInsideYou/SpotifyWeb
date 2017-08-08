@@ -3,6 +3,8 @@ import os
 import sys
 import urllib.request
 
+import unittest
+
 sys.path.append(
   os.path.abspath(
     os.path.join(
@@ -11,8 +13,6 @@ sys.path.append(
     )
   )
 )
-
-import unittest
 
 from Server import Server
 

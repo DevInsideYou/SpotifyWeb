@@ -1,6 +1,8 @@
 import os
 import sys
 
+import unittest
+
 sys.path.append(
   os.path.abspath(
     os.path.join(
@@ -10,9 +12,6 @@ sys.path.append(
   )
 )
 
-import unittest
-
-from Client import Client
 from Spotify import Spotify
 
 class TestSpotify(unittest.TestCase):
@@ -39,7 +38,7 @@ class TestSpotify(unittest.TestCase):
 
   def test_if_token_is_not_cached_call_the_get_redirect_response_function(self):
     class FakeClient:
-      def __init__(self, client_id, client_secret, redirect_port):
+      def __init__(self, redirect_port):
         self.redirect_port = redirect_port
 
       def get_oauth2_url(self):
@@ -54,7 +53,7 @@ class TestSpotify(unittest.TestCase):
       def currently_playing_track_name(self, token):
         return "some track name"
 
-    client = FakeClient("some id", "some secret", redirect_port = 1337)
+    client = FakeClient(redirect_port = 1337)
 
     actual = ""
 
