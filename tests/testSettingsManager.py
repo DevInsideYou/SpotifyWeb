@@ -17,7 +17,7 @@ from SettingsManager import SettingsManager
 
 class TestSettingsManager(unittest.TestCase):
   def test_redirect_port_should_default_to_8080_if_load_settings_raises_an_exception(self):
-    self.__test_default_redirect_port(lambda key: self.__throw_up())
+    self.__test_default_redirect_port(lambda key: self.__raiseException())
 
   def test_redirect_port_should_default_to_8080_if_it_is_not_specified(self):
     self.__test_default_redirect_port(lambda key: None)
@@ -46,7 +46,7 @@ class TestSettingsManager(unittest.TestCase):
     self.__test_valid_redirect_port(random.randint(minimum, maximum))
 
   def test_refresh_interval_in_seconds_should_default_to_5_if_load_settings_raises_an_exception(self):
-    self.__test_default_refresh_interval_in_seconds(lambda key: self.__throw_up())
+    self.__test_default_refresh_interval_in_seconds(lambda key: self.__raiseException())
 
   def test_refresh_interval_in_seconds_should_default_to_5_if_it_is_not_specified(self):
     self.__test_default_refresh_interval_in_seconds(lambda key: None)
@@ -75,7 +75,7 @@ class TestSettingsManager(unittest.TestCase):
     self.__test_valid_refresh_interval_in_seconds(random.randint(minimum, maximum))
 
   def test_is_enabled_should_default_to_False_if_load_settings_raises_an_exception(self):
-    self.__test_default_is_enabled(lambda key: self.__throw_up())
+    self.__test_default_is_enabled(lambda key: self.__raiseException())
 
   def test_is_enabled_should_default_to_False_if_it_is_not_specified(self):
     self.__test_default_is_enabled(lambda key: None)
@@ -101,52 +101,52 @@ class TestSettingsManager(unittest.TestCase):
       nonlocal actualValue
       actualValue = value
 
-    loader = SettingsManager(FakeReaderWriter(read, write))
+    manager = SettingsManager(FakeReaderWriter(read, write))
 
-    loader.toggle()
+    manager.toggle()
     self.assertEqual(actualKey, "SublimeSpotifyRest_bool_is_enabled")
     self.assertEqual(actualValue, False)
 
-    loader.toggle()
+    manager.toggle()
     self.assertEqual(actualKey, "SublimeSpotifyRest_bool_is_enabled")
     self.assertEqual(actualValue, True)
 
-  def __throw_up(self):
+  def __raiseException(self):
     raise Exception
 
   def __test_default_redirect_port(self, load_settings):
-    loader = SettingsManager(FakeReaderWriter(read = load_settings))
-    actual = loader.redirect_port()
+    manager = SettingsManager(FakeReaderWriter(read = load_settings))
+    actual = manager.redirect_port()
     self.assertEquals(actual, 8080)
 
   def __test_valid_redirect_port(self, expected):
-    loader = SettingsManager(FakeReaderWriter(read = lambda key: expected))
-    actual = loader.redirect_port()
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: expected))
+    actual = manager.redirect_port()
     self.assertEqual(actual, expected)
 
   def __test_default_refresh_interval_in_seconds(self, load_settings):
-    loader = SettingsManager(FakeReaderWriter(read = load_settings))
-    actual = loader.refresh_interval_in_seconds()
+    manager = SettingsManager(FakeReaderWriter(read = load_settings))
+    actual = manager.refresh_interval_in_seconds()
     self.assertEquals(actual, 5)
 
   def __test_valid_refresh_interval_in_seconds(self, expected):
-    loader = SettingsManager(FakeReaderWriter(read = lambda key: expected))
-    actual = loader.refresh_interval_in_seconds()
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: expected))
+    actual = manager.refresh_interval_in_seconds()
     self.assertEqual(actual, expected)
 
   def __test_default_is_enabled(self, load_settings):
-    loader = SettingsManager(FakeReaderWriter(read = load_settings))
-    self.__test_is_enabled(loader, False)
+    manager = SettingsManager(FakeReaderWriter(read = load_settings))
+    self.__test_is_enabled(manager, False)
 
   def __test_valid_is_enabled(self, expected):
-    loader = SettingsManager(FakeReaderWriter(read = lambda key: expected))
-    self.__test_is_enabled(loader, expected)
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: expected))
+    self.__test_is_enabled(manager, expected)
 
-  def __test_is_enabled(self, loader, expected):
-    actual_enabled = loader.is_enabled()
+  def __test_is_enabled(self, manager, expected):
+    actual_enabled = manager.is_enabled()
     self.assertEqual(actual_enabled, expected)
 
-    actual_disabled = loader.is_disabled()
+    actual_disabled = manager.is_disabled()
     self.assertEqual(actual_disabled, not expected)
 
 class FakeReaderWriter:
