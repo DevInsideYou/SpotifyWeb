@@ -3,6 +3,12 @@ class SettingsManager:
     self.__read = reader_writer.read_setting
     self.__write = reader_writer.write_setting
 
+  def client_id(self):
+    return self.__read("SublimeSpotifyRest_string_client_id")
+
+  def client_secret(self):
+    return self.__read("SublimeSpotifyRest_string_client_secret")
+
   def redirect_port(self):
     default = 8080
 

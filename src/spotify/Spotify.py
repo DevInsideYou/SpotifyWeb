@@ -1,6 +1,38 @@
+from threading import Timer
+
+import webbrowser
+
+from .Server import Server
+from .Client import Client
+
 class Spotify:
   def __init__(self, side_effect):
     self.__side_effect = side_effect
+
+  def run_main_loop(self, settings_manager):
+    def keep_looping():
+        self.run_main_loop(settings_manager)
+
+    try:
+      self.__side_effect_current_track_name_or_empty(settings_manager)
+    except Exception as e:
+      self.__side_effect(str(e))
+    finally:
+      Timer(settings_manager.refresh_interval_in_seconds(), keep_looping).start()
+
+  def __side_effect_current_track_name_or_empty(self, settings_manager):
+    if(settings_manager.is_disabled()):
+      self.__side_effect("")
+    else:
+      self.run_once(
+        client = Client(
+          settings_manager.client_id(),
+          settings_manager.client_secret(),
+          settings_manager.redirect_port()
+        ),
+        send_oauth2_request = webbrowser.open,
+        get_redirect_response = Server.get_redirect_response
+      )
 
   def run_once(self, client, send_oauth2_request, get_redirect_response):
     def run_once():
