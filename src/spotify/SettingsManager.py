@@ -4,10 +4,26 @@ class SettingsManager:
     self.__write = reader_writer.write_setting
 
   def client_id(self):
-    return self.__read("SpotifyWeb_string_client_id")
+    return self.__read_credential(key = "SpotifyWeb_string_client_id")
 
   def client_secret(self):
-    return self.__read("SpotifyWeb_string_client_secret")
+    return self.__read_credential(key = "SpotifyWeb_string_client_secret")
+
+  def __read_credential(self, key):
+    actual = self.__read(key)
+
+    if(actual is None or actual == ""):
+      raise Exception(self.__key_missing(key))
+    elif (not isinstance(actual, str)):
+      raise Exception(self.__key_is_of_unexpected_type(key, type(""), type(actual)))
+    else:
+      return actual
+
+  def __key_missing(self, key):
+    return "Please specify {} in Preferences -> Package Settings -> SpotifyWeb -> Settings".format(key)
+
+  def __key_is_of_unexpected_type(self, key, expected_type, actual_type):
+    return "Expected {} to be of {}, but was {}".format(key, expected_type, actual_type)
 
   def redirect_port(self):
     default = 8080

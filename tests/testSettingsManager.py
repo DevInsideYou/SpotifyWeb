@@ -87,6 +87,60 @@ class TestSettingsManager(unittest.TestCase):
     self.__test_valid_is_enabled(True)
     self.__test_valid_is_enabled(False)
 
+  def test_client_id_should_raise_an_exception_if_it_is_not_specified(self):
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: None))
+    expected = "Please specify SpotifyWeb_string_client_id in Preferences -> Package Settings -> SpotifyWeb -> Settings"
+
+    with self.assertRaisesRegexp(Exception, expected):
+      manager.client_id()
+
+  def test_client_id_should_raise_an_exception_if_it_is_empty(self):
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: ""))
+    expected = "Please specify SpotifyWeb_string_client_id in Preferences -> Package Settings -> SpotifyWeb -> Settings"
+
+    with self.assertRaisesRegexp(Exception, expected):
+      manager.client_id()
+
+  def test_client_id_should_raise_an_exception_if_it_is_not_string(self):
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: 1337))
+    expected = "Expected SpotifyWeb_string_client_id to be of {}, but was {}".format(type(""), type(1337))
+
+    with self.assertRaisesRegexp(Exception, expected):
+      manager.client_id()
+
+  def test_valid_client_id(self):
+    expected = "some key"
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: expected))
+    actual = manager.client_id()
+    self.assertEqual(actual, expected)
+
+  def test_client_secret_should_raise_an_exception_if_it_is_not_specified(self):
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: None))
+    expected = "Please specify SpotifyWeb_string_client_secret in Preferences -> Package Settings -> SpotifyWeb -> Settings"
+
+    with self.assertRaisesRegexp(Exception, expected):
+      manager.client_secret()
+
+  def test_client_secret_should_raise_an_exception_if_it_is_empty(self):
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: ""))
+    expected = "Please specify SpotifyWeb_string_client_secret in Preferences -> Package Settings -> SpotifyWeb -> Settings"
+
+    with self.assertRaisesRegexp(Exception, expected):
+      manager.client_secret()
+
+  def test_client_secret_should_raise_an_exception_if_it_is_not_string(self):
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: 1337))
+    expected = "Expected SpotifyWeb_string_client_secret to be of {}, but was {}".format(type(""), type(1337))
+
+    with self.assertRaisesRegexp(Exception, expected):
+      manager.client_secret()
+
+  def test_valid_client_secret(self):
+    expected = "some key"
+    manager = SettingsManager(FakeReaderWriter(read = lambda key: expected))
+    actual = manager.client_secret()
+    self.assertEqual(actual, expected)
+
   def test_toggle(self):
     actualKey = "SpotifyWeb_bool_is_enabled"
     actualValue = True
