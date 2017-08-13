@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Timer
+import os
 import urllib.request
 
 class Server:
@@ -23,23 +24,19 @@ class Server:
 
           handle(self.path)
 
-          html = """<!DOCTYPE html>
-                    <html>
-                    <head>
-                      <title>Spotify</title>
-                      <link rel="icon" href="//d2c87l0yth4zbw-2.global.ssl.fastly.net/i/_global/favicon.png">
-                    </head>
-                    <body>
-                      <div>
-                        <h2>Authorization success!</h2>
-                        <h3>You may close this tab now.</h3>
-                      </div>
-                    </body>
-                    </html>"""
+          html = open(self.__html_location(), "r").read()
 
           self.wfile.write(bytes(html, "utf8"))
 
           return
+
+        def __html_location(self):
+          return os.path.abspath(
+              os.path.join(
+                os.path.dirname(__file__),
+                "../../resources/index.html"
+              )
+            )
 
       return SpotifyRedirectURIHandler
 
