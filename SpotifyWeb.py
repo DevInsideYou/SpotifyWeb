@@ -6,7 +6,7 @@ from .src.spotify.Spotify import Spotify
 
 from .src.sublime.SettingsManager import SettingsManager as SublimeSettingsManager
 
-sublime_settings_manager = SublimeSettingsManager("SublimeSpotifyRest.sublime-settings")
+sublime_settings_manager = SublimeSettingsManager("SpotifyWeb.sublime-settings")
 
 settings_manager = SettingsManager(
   reader_writer = sublime_settings_manager

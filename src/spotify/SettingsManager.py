@@ -4,10 +4,10 @@ class SettingsManager:
     self.__write = reader_writer.write_setting
 
   def client_id(self):
-    return self.__read("SublimeSpotifyRest_string_client_id")
+    return self.__read("SpotifyWeb_string_client_id")
 
   def client_secret(self):
-    return self.__read("SublimeSpotifyRest_string_client_secret")
+    return self.__read("SpotifyWeb_string_client_secret")
 
   def redirect_port(self):
     default = 8080
@@ -18,7 +18,7 @@ class SettingsManager:
       return default
 
   def __redirect_port(self, default):
-    actual = self.__read("SublimeSpotifyRest_int_redirect_port")
+    actual = self.__read("SpotifyWeb_int_redirect_port")
 
     if 1024 <= actual <= 65535:
       return actual
@@ -34,7 +34,7 @@ class SettingsManager:
       return default
 
   def __refresh_interval_in_seconds(self, default):
-    actual = self.__read("SublimeSpotifyRest_int_refresh_interval_in_seconds")
+    actual = self.__read("SpotifyWeb_int_refresh_interval_in_seconds")
 
     if 1 <= actual <= 15:
       return actual
@@ -50,7 +50,7 @@ class SettingsManager:
       return default
 
   def __is_enabled(self, default):
-    actual = self.__read("SublimeSpotifyRest_bool_is_enabled")
+    actual = self.__read("SpotifyWeb_bool_is_enabled")
 
     if not isinstance(actual, bool):
       return default
@@ -61,4 +61,4 @@ class SettingsManager:
     return not self.is_enabled()
 
   def toggle(self):
-    self.__write("SublimeSpotifyRest_bool_is_enabled", not self.is_enabled())
+    self.__write("SpotifyWeb_bool_is_enabled", not self.is_enabled())

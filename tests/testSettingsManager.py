@@ -88,7 +88,7 @@ class TestSettingsManager(unittest.TestCase):
     self.__test_valid_is_enabled(False)
 
   def test_toggle(self):
-    actualKey = "SublimeSpotifyRest_bool_is_enabled"
+    actualKey = "SpotifyWeb_bool_is_enabled"
     actualValue = True
 
     def read(key):
@@ -104,11 +104,11 @@ class TestSettingsManager(unittest.TestCase):
     manager = SettingsManager(FakeReaderWriter(read, write))
 
     manager.toggle()
-    self.assertEqual(actualKey, "SublimeSpotifyRest_bool_is_enabled")
+    self.assertEqual(actualKey, "SpotifyWeb_bool_is_enabled")
     self.assertEqual(actualValue, False)
 
     manager.toggle()
-    self.assertEqual(actualKey, "SublimeSpotifyRest_bool_is_enabled")
+    self.assertEqual(actualKey, "SpotifyWeb_bool_is_enabled")
     self.assertEqual(actualValue, True)
 
   def __raiseException(self):

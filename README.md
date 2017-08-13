@@ -1,4 +1,4 @@
-# sublime-spotify-rest
+# SpotifyWeb
 Displays the current track in the status bar of sublime-text.
 
 It's work in progress. Don't touch! :)

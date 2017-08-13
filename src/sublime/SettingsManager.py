@@ -35,7 +35,7 @@ class SettingsManager:
 
     packages = settings_window.extract_variables()["packages"]
 
-    settings_window.open_file("{}/sublime-spotify-rest/{}".format(packages, self.__settings_file_name))
+    settings_window.open_file("{}/SpotifyWeb/{}".format(packages, self.__settings_file_name))
 
     settings_window.focus_group(1) # focus the right group
 
