@@ -32,7 +32,7 @@ class Server:
                     <body>
                       <div>
                         <h2>Authorization success!</h2>
-                        <h3>You man close this tab now.</h3>
+                        <h3>You may close this tab now.</h3>
                       </div>
                     </body>
                     </html>"""

@@ -1,9 +1,11 @@
 from threading import Timer
-
 import webbrowser
 
-from .Server import Server
-from .Client import Client
+try:
+  from .Client import Client
+  from .Server import Server
+except:
+  pass
 
 class Spotify:
   def __init__(self, side_effect):

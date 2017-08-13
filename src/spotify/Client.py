@@ -15,7 +15,7 @@ sys.path.append(
 
 from spotipy import client as SpotipyClient
 from spotipy import oauth2 as SpotipyOauth2
-# user-read-currently-playing
+
 class Client:
   def __init__(self, client_id, client_secret, redirect_port):
     logging.getLogger("requests").setLevel(logging.WARNING)
