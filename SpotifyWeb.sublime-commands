@@ -1,10 +1,10 @@
 [
   {
-    "caption": "Spotify: Enable/Disable",
+    "caption": "SpotifyWeb: Enable/Disable",
     "command": "sublime_spotify_toggle"
   },
   {
-    "caption": "Spotify: Settings",
+    "caption": "SpotifyWeb: Settings",
     "command": "sublime_spotify_rest_settings"
   }
 ]
