@@ -27,9 +27,9 @@ class Spotify_web_toggleCommand(sublime_plugin.ApplicationCommand):
     settings_manager.toggle()
 
     if settings_manager.is_enabled():
-      sublime_settings_manager.display_message("Spotify enabled. Play a song and it will be shown here.")
+      sublime_settings_manager.display_message("SpotifyWeb enabled. Play a song and it will be shown here.")
     else:
-      sublime_settings_manager.display_message("Spotify disabled.")
+      sublime_settings_manager.display_message("SpotifyWeb disabled.")
 
 class Spotify_web_settingsCommand(sublime_plugin.ApplicationCommand):
   def run(self):

@@ -76,7 +76,7 @@ class Spotify:
 
       def side_effect_error():
         self.__side_effect(
-          "Couldn't get authorization token from Spotify. "
+          "SpotifyWeb could not get the authorization token from Spotify. "
           "Another tab should have opened in your browser for you to try to login again. "
           "Please restart Sublime if the tab did not open."
         )
