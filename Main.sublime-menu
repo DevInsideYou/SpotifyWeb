@@ -17,11 +17,11 @@
             [
               {
                 "caption": "Enable/Disable",
-                "command": "sublime_spotify_toggle"
+                "command": "spotify_web_toggle"
               },
               {
                 "caption": "Settings",
-                "command": "sublime_spotify_rest_settings"
+                "command": "spotify_web_settings"
               }
             ]
           }

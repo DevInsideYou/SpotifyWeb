@@ -22,7 +22,7 @@ def plugin_loaded():
 
   run_main_loop()
 
-class Sublime_spotify_toggleCommand(sublime_plugin.ApplicationCommand):
+class Spotify_web_toggleCommand(sublime_plugin.ApplicationCommand):
   def run(self):
     settings_manager.toggle()
 
@@ -31,6 +31,6 @@ class Sublime_spotify_toggleCommand(sublime_plugin.ApplicationCommand):
     else:
       sublime_settings_manager.display_message("Spotify disabled.")
 
-class Sublime_spotify_rest_settingsCommand(sublime_plugin.ApplicationCommand):
+class Spotify_web_settingsCommand(sublime_plugin.ApplicationCommand):
   def run(self):
     sublime_settings_manager.open_settings_window()
