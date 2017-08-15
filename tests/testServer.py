@@ -30,7 +30,7 @@ class TestServer(unittest.TestCase):
       Timer(2, send_http_request_to_self).start()
 
     def handle(redirect_response):
-      self.asserEqual(redirect_response, "http://localhost:1337")
+      self.assertEqual(redirect_response, "/")
 
     Server.get_redirect_response(send_oauth2_request, oauth2_url, redirect_port, handle, available_duration_for_login_in_seconds = 5)
 
@@ -43,6 +43,6 @@ class TestServer(unittest.TestCase):
       # don't do anything
 
     def handle(redirect_response):
-      self.asserEqual(redirect_response, "http://localhost:1337")
+      self.assertEqual(redirect_response, "/")
 
     Server.get_redirect_response(send_oauth2_request, oauth2_url, redirect_port, handle, available_duration_for_login_in_seconds = 2)
