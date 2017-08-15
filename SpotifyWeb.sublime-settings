@@ -11,5 +11,5 @@
      Use any name or description you like.
      Use http://localhost:8080 as a Redirect URI (change the port if you have something else running on it already).
   2. Copy and paste the client id and secret (and potentially the port) to your settings file.
-  3. Set "SublimeSpotify_boolean_is_enabled": true
+  3. Set "SublimeSpotify_bool_is_enabled": true
 */
