@@ -1,0 +1,15 @@
+{
+  "SpotifyWeb_string_client_id": "",
+  "SpotifyWeb_string_client_secret": "",
+  "SpotifyWeb_bool_is_enabled": false,
+  "SpotifyWeb_int_redirect_port": 8080, // 1024..65535
+  "SpotifyWeb_int_refresh_interval_in_seconds": 5 // 2..15
+}
+
+/*
+  1. Register (takes less than a minute) your Spotify app at https://developer.spotify.com/my-applications/#!/applications/create
+     Use any name or description you like.
+     Use http://localhost:8080 as a Redirect URI (change the port if you have something else running on it already).
+  2. Copy and paste the client id and secret (and potentially the port) to your settings file.
+  3. Set "SublimeSpotify_boolean_is_enabled": true
+*/

@@ -5,22 +5,49 @@ from .src.spotify.SettingsManager import SettingsManager
 from .src.spotify.Spotify import Spotify
 
 from .src.sublime.SettingsManager import SettingsManager as SublimeSettingsManager
+from .src.sublime.Window import Window
 
-sublime_settings_manager = SublimeSettingsManager("SpotifyWeb.sublime-settings")
+window = Window(
+  status_bar_key = "SpotifyWeb"
+)
+
+sublime_settings_manager = SublimeSettingsManager(
+  settings_file_name = "SpotifyWeb.sublime-settings"
+)
 
 settings_manager = SettingsManager(
   reader_writer = sublime_settings_manager
 )
 
 def plugin_loaded():
-  sublime.active_window().run_command("show_panel", {"panel": "console", "toggle": True})
+  window.set_status_bar_message("")
+
+  window.subscribe(sublime.active_window().active_view())
+
+  open_settings_window_if_credentials_are_not_set()
 
   def run_main_loop():
     Spotify(
-      side_effect = print
+      side_effect = window.set_status_bar_message
     ).run_main_loop(settings_manager)
 
-  run_main_loop()
+  '''
+    When sublime starts up and the plugin is enabled,
+    the server should start on a different thread,
+    so that sublime doesn't hang until the circuit breaker kicks in
+  '''
+  sublime.set_timeout_async(run_main_loop, 5000)
+
+def open_settings_window_if_credentials_are_not_set():
+  if settings_manager.are_credentials_at_least_partially_empty_or_none():
+    sublime_settings_manager.open_settings_window()
+
+class SpotifyWeb(sublime_plugin.EventListener):
+  def on_activated(self, view):
+    window.subscribe(view)
+
+  def on_close(self, view):
+    window.unsubscribe(view)
 
 class Spotify_web_toggleCommand(sublime_plugin.ApplicationCommand):
   def run(self):

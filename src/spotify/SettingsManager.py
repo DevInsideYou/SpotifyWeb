@@ -52,7 +52,7 @@ class SettingsManager:
   def __refresh_interval_in_seconds(self, default):
     actual = self.__read("SpotifyWeb_int_refresh_interval_in_seconds")
 
-    if 1 <= actual <= 15:
+    if 2 <= actual <= 15:
       return actual
     else:
       return default
@@ -78,3 +78,9 @@ class SettingsManager:
 
   def toggle(self):
     self.__write("SpotifyWeb_bool_is_enabled", not self.is_enabled())
+
+  def are_credentials_at_least_partially_empty_or_none(self):
+    id = self.__read(key = "SpotifyWeb_string_client_id")
+    secret = self.__read(key = "SpotifyWeb_string_client_secret")
+
+    return id is None or id == "" or secret is None or secret == ""
