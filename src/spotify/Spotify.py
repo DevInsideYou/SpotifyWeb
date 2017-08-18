@@ -1,11 +1,8 @@
-from threading import Timer
+import threading
 import webbrowser
 
-try:
-  from .Client import Client
-  from .Server import Server
-except:
-  pass
+from .Client import Client
+from .Server import Server
 
 class Spotify:
   def __init__(self, side_effect):
@@ -20,7 +17,7 @@ class Spotify:
     except Exception as e:
       self.__side_effect(str(e))
     finally:
-      Timer(settings_manager.refresh_interval_in_seconds(), keep_looping).start()
+      threading.Timer(settings_manager.refresh_interval_in_seconds(), keep_looping).start()
 
   def __side_effect_current_track_name_or_empty(self, settings_manager):
     if(settings_manager.is_disabled()):

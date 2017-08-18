@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from threading import Timer
 import os
+import threading
 import urllib.request
 
 class Server:
@@ -41,7 +41,7 @@ class Server:
       return SpotifyRedirectURIHandler
 
     def block_thread_until_spotify_responds(server):
-      circuit_breaker = Timer(available_duration_for_login_in_seconds, send_http_request_to_self)
+      circuit_breaker = threading.Timer(available_duration_for_login_in_seconds, send_http_request_to_self)
       circuit_breaker.start()
       server.handle_request() # blocking happens here
       circuit_breaker.cancel()

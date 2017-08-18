@@ -1,18 +1,10 @@
-import os
 import sys
 
 import unittest
 
-sys.path.append(
-  os.path.abspath(
-    os.path.join(
-      os.path.dirname(__file__),
-      "../src/spotify"
-    )
-  )
-)
+SpotifyModule = sys.modules["SpotifyWeb.src.spotify.Spotify"]
 
-from Spotify import Spotify
+Spotify = SpotifyModule.Spotify
 
 class TestSpotify(unittest.TestCase):
   def test_if_token_is_cached_side_effect_current_track_name(self):

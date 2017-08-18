@@ -1,20 +1,12 @@
-from threading import Timer
-import os
 import sys
+import threading
 import urllib.request
 
 import unittest
 
-sys.path.append(
-  os.path.abspath(
-    os.path.join(
-      os.path.dirname(__file__),
-      "../src/spotify"
-    )
-  )
-)
+ServerModule = sys.modules["SpotifyWeb.src.spotify.Server"]
 
-from Server import Server
+Server = ServerModule.Server
 
 class TestServer(unittest.TestCase):
   def test_roundtrip(self):
@@ -27,7 +19,7 @@ class TestServer(unittest.TestCase):
     def send_oauth2_request(url):
       self.assertEqual(url, oauth2_url)
 
-      Timer(2, send_http_request_to_self).start()
+      threading.Timer(2, send_http_request_to_self).start()
 
     def handle(redirect_response):
       self.assertEqual(redirect_response, "/")

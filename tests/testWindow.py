@@ -1,19 +1,12 @@
-import os
 import sys
 
 import sublime
+
 import unittest
 
-sys.path.append(
-  os.path.abspath(
-    os.path.join(
-      os.path.dirname(__file__),
-      "../src/sublime"
-    )
-  )
-)
+WindowModule = sys.modules["SpotifyWeb.src.sublime.Window"]
 
-from Window import Window
+Window = WindowModule.Window
 
 class TestWindow(unittest.TestCase):
   def test_if_nothing_is_set_get_status_should_yield_an_empty_string(self):

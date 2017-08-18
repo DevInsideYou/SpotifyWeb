@@ -1,19 +1,11 @@
-import os
 import random
 import sys
 
 import unittest
 
-sys.path.append(
-  os.path.abspath(
-    os.path.join(
-      os.path.dirname(__file__),
-      "../src/spotify"
-    )
-  )
-)
+SettingsManagerModule = sys.modules["SpotifyWeb.src.spotify.SettingsManager"]
 
-from SettingsManager import SettingsManager
+SettingsManager = SettingsManagerModule.SettingsManager
 
 class TestSettingsManager(unittest.TestCase):
   def test_redirect_port_should_default_to_8080_if_load_settings_raises_an_exception(self):
