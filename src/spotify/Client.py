@@ -2,19 +2,8 @@ import logging
 import os
 import sys
 
-relative_root_directory = "../../"
-
-sys.path.append(
-  os.path.abspath(
-    os.path.join(
-      os.path.dirname(__file__),
-      relative_root_directory + "lib/spotipy-2.4.4"
-    )
-  )
-)
-
-from spotipy import client as SpotipyClient
-from spotipy import oauth2 as SpotipyOauth2
+from ...lib.spotipy import client as SpotipyClient
+from ...lib.spotipy import oauth2 as SpotipyOauth2
 
 class Client:
   def __init__(self, client_id, client_secret, redirect_port):
@@ -30,7 +19,7 @@ class Client:
       cache_path = os.path.abspath(
         os.path.join(
           os.path.dirname(__file__),
-          relative_root_directory + ".cached-token"
+          "../../.cached-token"
         )
       )
     )
