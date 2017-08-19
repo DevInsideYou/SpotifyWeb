@@ -16,11 +16,9 @@ class Client:
       client_secret,
       redirect_uri = "http://localhost:" + str(redirect_port),
       scope = "user-read-currently-playing",
-      cache_path = os.path.abspath(
-        os.path.join(
-          os.path.dirname(__file__),
-          "../../.cached-token"
-        )
+      cache_path = os.path.join(
+        os.path.dirname(__file__),
+        "../../.cached-token"
       )
     )
 
