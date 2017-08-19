@@ -33,13 +33,11 @@ class SettingsManager:
 
     settings_window.set_layout(left_right_group) # the left group is focused by default
 
-    packages = sublime.packages_path()
-
-    settings_window.open_file("{}/SpotifyWeb/{}".format(packages, self.__settings_file_name))
+    settings_window.run_command("open_file", { "file": "${packages}/SpotifyWeb/" + self.__settings_file_name})
 
     settings_window.focus_group(1) # focus the right group
 
-    settings_window.open_file("{}/User/{}".format(packages, self.__settings_file_name))
+    settings_window.run_command("open_file", { "file": "${packages}/User/" + self.__settings_file_name})
 
   def display_message(self, message):
     sublime.active_window().status_message(message)
