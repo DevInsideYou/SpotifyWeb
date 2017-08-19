@@ -33,7 +33,7 @@ class SettingsManager:
 
     settings_window.set_layout(left_right_group) # the left group is focused by default
 
-    packages = settings_window.extract_variables()["packages"]
+    packages = sublime.packages_path()
 
     settings_window.open_file("{}/SpotifyWeb/{}".format(packages, self.__settings_file_name))
 
