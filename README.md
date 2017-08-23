@@ -18,5 +18,5 @@ Always store keys securely! Regenerate your client secret if you supect it has b
 ```
 This means that unfortunately every user has to register his/her own app.
 
-## Watch how it was built
+## Watch how it was built from scratch
 [![Watch on YouTube](resources/thumbnail_youtube.png)](https://youtu.be/1O-c-4mXqRc?list=PLJGDHERh23x_t5w5U3e_cWg5CLeCq8_7j "Watch on YouTube")
