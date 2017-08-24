@@ -46,7 +46,7 @@ class TestSettingsManager(unittest.TestCase):
   def test_refresh_interval_in_seconds_should_default_to_5_if_it_is_not_int(self):
     self.__test_default_refresh_interval_in_seconds(lambda key: "not int")
 
-  def test_refresh_interval_in_seconds_should_default_to_5_if_input_is_less_than_1(self):
+  def test_refresh_interval_in_seconds_should_default_to_5_if_input_is_less_than_2(self):
     minimum = 2
 
     self.__test_default_refresh_interval_in_seconds(lambda key: minimum - 1)
@@ -58,7 +58,7 @@ class TestSettingsManager(unittest.TestCase):
     self.__test_default_refresh_interval_in_seconds(lambda key: maximum + 1)
     self.__test_default_refresh_interval_in_seconds(lambda key: random.randint(maximum + 1, 123456789))
 
-  def test_refresh_interval_in_seconds_should_be_a_valid_integer_between_1_and_15(self):
+  def test_refresh_interval_in_seconds_should_be_a_valid_integer_between_2_and_15(self):
     minimum = 2
     maximum = 15
 
