@@ -47,7 +47,9 @@ class Client:
 
   def currently_playing_track_name(self, token):
     def currently_playing_track_name(track):
-      if track["is_playing"]:
+      if track is None:
+        return ""
+      elif track["is_playing"]:
         return track["item"]["name"]
       else:
         return ""
