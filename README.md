@@ -14,7 +14,7 @@ This plugin has only been tested with Sublime Text 3.
 ## Why do I have to register my own app?
 Extracted from [developer.spotify.com](https://developer.spotify.com/my-applications/#!/applications):
 ```
-Always store keys securely! Regenerate your client secret if you supect it has been compromised!
+Always store keys securely! Regenerate your client secret if you suspect it has been compromised!
 ```
 This means that unfortunately every user has to register his/her own app.
 
