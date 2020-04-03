@@ -30,26 +30,28 @@ class Spotify:
           settings_manager.redirect_port()
         ),
         send_oauth2_request = webbrowser.open,
-        get_redirect_response = Server.get_redirect_response
+        get_redirect_response = Server.get_redirect_response,
+        settings_manager = settings_manager
       )
 
-  def run_once(self, client, send_oauth2_request, get_redirect_response):
+  def run_once(self, client, send_oauth2_request, get_redirect_response, settings_manager):
     def run_once():
       def side_effect_current_track_name_using_cached_token():
         side_effect_current_track_name(
           token = client.get_cached_token(),
-          fallback = authenticate_to_get_fresh_token
+          fallback = authenticate_to_get_fresh_token,
+          settings_manager = settings_manager
         )
 
-      def side_effect_current_track_name(token, fallback):
+      def side_effect_current_track_name(token, fallback, settings_manager):
         if(token):
-          try_side_effect_current_track_name(token)
+          try_side_effect_current_track_name(token, settings_manager)
         else:
           fallback()
 
-      def try_side_effect_current_track_name(valid_token):
+      def try_side_effect_current_track_name(valid_token, settings_manager):
         try:
-          self.__side_effect(client.currently_playing_track_name(valid_token))
+          self.__side_effect(client.currently_playing_track_name(valid_token, settings_manager))
         except Exception as e:
           self.__side_effect(str(e))
 
