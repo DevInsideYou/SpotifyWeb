@@ -68,7 +68,7 @@ class Client:
               else:
                 artistName = 'Various Artists'
 
-          return self.__returnResponse(artistName, item["name"], settings_manager)
+          return self.__returnResponse(item["name"], artistName, settings_manager)
 
     return currently_playing_track_name(
       track = self.__get_current_track(token),
