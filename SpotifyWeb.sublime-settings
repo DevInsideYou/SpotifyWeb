@@ -4,7 +4,8 @@
   "SpotifyWeb_bool_is_enabled": false,
   "SpotifyWeb_int_redirect_port": 8080, // 1024..65535
   "SpotifyWeb_int_refresh_interval_in_seconds": 5, // 2..15
-  "SpotifyWeb_string_show_every_artist_name_instead_of_various_artists": false
+  "SpotifyWeb_bool_show_every_artist_name_instead_of_various_artists": false,
+  "SpotifyWeb_bool_music_name_comes_before_artist_name": true
 }
 
 /*

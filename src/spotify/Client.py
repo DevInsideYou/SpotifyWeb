@@ -19,7 +19,7 @@ class Client:
       cache_path = os.path.abspath(
         os.path.join(
           os.path.dirname(__file__),
-          "../../.cached-token"
+          "../../../.SpotifyWeb-Cached-Token"
         )
       )
     )
@@ -53,7 +53,7 @@ class Client:
           if track["item"] is not None:
             item = track["item"]
             if item['type'] == 'episode':
-              return item["name"] + ' - ' + item['show']['name']
+              return self.__returnResponse(item["name"], item['show']['name'], settings_manager)
             else:
               artistName = ""
               if len(item["artists"]) == 1:
@@ -67,7 +67,8 @@ class Client:
                     artistName += ' - '
               else:
                 artistName = 'Various Artists'
-          return item["name"] + " - " + artistName
+
+          return self.__returnResponse(artistName, item["name"], settings_manager)
 
     return currently_playing_track_name(
       track = self.__get_current_track(token),
@@ -79,4 +80,10 @@ class Client:
 
   def __get(self, token, url, args=None):
     return SpotipyClient.Spotify(auth = token)._get(url, args)
+
+  def __returnResponse(self, trackParam, artistParam, settings_manager):
+    if settings_manager.music_name_comes_before_artist_name():
+      return trackParam + ' - ' + artistParam
+    else:
+      return artistParam + ' - ' + trackParam
     

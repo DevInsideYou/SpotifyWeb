@@ -39,17 +39,16 @@ class Spotify:
       def side_effect_current_track_name_using_cached_token():
         side_effect_current_track_name(
           token = client.get_cached_token(),
-          fallback = authenticate_to_get_fresh_token,
-          settings_manager = settings_manager
+          fallback = authenticate_to_get_fresh_token
         )
 
-      def side_effect_current_track_name(token, fallback, settings_manager):
+      def side_effect_current_track_name(token, fallback):
         if(token):
-          try_side_effect_current_track_name(token, settings_manager)
+          try_side_effect_current_track_name(token)
         else:
           fallback()
 
-      def try_side_effect_current_track_name(valid_token, settings_manager):
+      def try_side_effect_current_track_name(valid_token):
         try:
           self.__side_effect(client.currently_playing_track_name(valid_token, settings_manager))
         except Exception as e:
@@ -73,7 +72,7 @@ class Spotify:
         except:
           side_effect_error()
 
-      def side_effect_error():
+      def side_effect_error():  
         self.__side_effect(
           "SpotifyWeb could not get the authorization token from Spotify. "
           "Another tab should have opened in your browser for you to try to login again. "
