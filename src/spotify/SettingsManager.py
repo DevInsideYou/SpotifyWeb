@@ -84,3 +84,35 @@ class SettingsManager:
     secret = self.__read(key = "SpotifyWeb_string_client_secret")
 
     return id is None or id == "" or secret is None or secret == ""
+
+  def show_every_artist_name_instead_of_various_artists(self):
+    default = False
+
+    try:
+      return self.__show_every_artist_name_instead_of_various_artists(default)
+    except:
+      return default
+
+  def __show_every_artist_name_instead_of_various_artists(self, default):
+    actual = self.__read("SpotifyWeb_bool_show_every_artist_name_instead_of_various_artists")
+
+    if actual:
+      return actual
+    else:
+      return default
+
+  def music_name_comes_before_artist_name(self):
+    default = True
+
+    try:
+      return self.__music_name_comes_before_artist_name(default)
+    except:
+      return default
+
+  def __music_name_comes_before_artist_name(self, default):
+    actual = self.__read("SpotifyWeb_bool_music_name_comes_before_artist_name")
+
+    if actual is False:
+      return actual
+    else:
+      return default

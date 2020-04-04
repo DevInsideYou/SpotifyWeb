@@ -98,6 +98,3 @@ ENV/
 
 # mypy
 .mypy_cache/
-
-# misc
-.cached-token
