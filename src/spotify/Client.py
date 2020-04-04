@@ -19,7 +19,7 @@ class Client:
       cache_path = os.path.abspath(
         os.path.join(
           os.path.dirname(__file__),
-          "../../../.SpotifyWeb-Cached-Token"
+          "../../../.spotifyweb-cached-token"
         )
       )
     )
@@ -45,45 +45,64 @@ class Client:
     else:
       None
 
-  def currently_playing_track_name(self, token, settings_manager):
-    def currently_playing_track_name(track, settings_manager):
+  def currently_playing_track(self, token, settings_manager):
+    def render_title_and_artist_or_show(title, artist_or_show_name):
+      if settings_manager.should_display_title_before_artist():
+        return title + " - " + artist_or_show_name
+      else:
+        return artist_or_show_name + " - " + title
+
+    def render_artists(artists):
+      number_of_artists = len(artists)
+
+      if number_of_artists == 1:
+        return artists[0]["name"]
+      elif not settings_manager.should_display_every_artist_name():
+        return "Various Artists"
+      else:
+        artist_name = ""
+
+        for index, artist in enumerate(artists):
+          artist_name += artist["name"]
+
+          if number_of_artists == (index + 1):
+            continue
+          else:
+            artist_name += ", "
+
+        return artist_name
+
+    def render_item(item):
+      if item is None:
+        return ""
+      else:
+        title = item["name"]
+
+        if item["type"] == "episode":
+          return render_title_and_artist_or_show(title, item["show"]["name"])
+        else:
+          return render_title_and_artist_or_show(title, render_artists(item["artists"]))
+
+    def currently_playing_track(track):
       if track is None:
         return ""
       elif track["is_playing"]:
-          if track["item"] is not None:
-            item = track["item"]
-            if item['type'] == 'episode':
-              return self.__returnResponse(item["name"], item['show']['name'], settings_manager)
-            else:
-              artistName = ""
-              if len(item["artists"]) == 1:
-                artistName += item["artists"][0]["name"]
-              elif settings_manager.show_every_artist_name_instead_of_various_artists():
-                for index, artists in enumerate(item["artists"]):
-                  artistName += artists["name"] 
-                  if len(item["artists"]) == (index + 1):
-                    continue
-                  else:
-                    artistName += ' - '
-              else:
-                artistName = 'Various Artists'
+        return render_item(track["item"])
+      else:
+        return ""
 
-          return self.__returnResponse(item["name"], artistName, settings_manager)
-
-    return currently_playing_track_name(
-      track = self.__get_current_track(token),
-      settings_manager = settings_manager
+    return currently_playing_track(
+      track = self.__get_current_track(token)
     )
 
   def __get_current_track(self, token):
-    return self.__get(token, "https://api.spotify.com/v1/me/player/currently-playing", {'additional_types': 'episode,track'})
+    return self.__get(
+      token,
+      "https://api.spotify.com/v1/me/player/currently-playing",
+      {
+        "additional_types": "episode,track"
+      }
+    )
 
   def __get(self, token, url, args=None):
     return SpotipyClient.Spotify(auth = token)._get(url, args)
-
-  def __returnResponse(self, trackParam, artistParam, settings_manager):
-    if settings_manager.music_name_comes_before_artist_name():
-      return trackParam + ' - ' + artistParam
-    else:
-      return artistParam + ' - ' + trackParam
-    

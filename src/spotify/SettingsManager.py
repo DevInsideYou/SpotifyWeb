@@ -85,32 +85,32 @@ class SettingsManager:
 
     return id is None or id == "" or secret is None or secret == ""
 
-  def show_every_artist_name_instead_of_various_artists(self):
+  def should_display_every_artist_name(self):
     default = False
 
     try:
-      return self.__show_every_artist_name_instead_of_various_artists(default)
+      return self.__should_display_every_artist_name(default)
     except:
       return default
 
-  def __show_every_artist_name_instead_of_various_artists(self, default):
-    actual = self.__read("SpotifyWeb_bool_show_every_artist_name_instead_of_various_artists")
+  def __should_display_every_artist_name(self, default):
+    actual = self.__read("SpotifyWeb_bool_should_display_every_artist_name")
 
     if actual:
       return actual
     else:
       return default
 
-  def music_name_comes_before_artist_name(self):
+  def should_display_title_before_artist(self):
     default = True
 
     try:
-      return self.__music_name_comes_before_artist_name(default)
+      return self.__should_display_title_before_artist(default)
     except:
       return default
 
-  def __music_name_comes_before_artist_name(self, default):
-    actual = self.__read("SpotifyWeb_bool_music_name_comes_before_artist_name")
+  def __should_display_title_before_artist(self, default):
+    actual = self.__read("SpotifyWeb_bool_should_display_title_before_artist")
 
     if actual is False:
       return actual

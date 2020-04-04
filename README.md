@@ -1,5 +1,5 @@
 # SpotifyWeb
-This plugin connects to your [Spotify](https://www.spotify.com/) account and polls for the current track. It then displays the `track title` in the `status bar` of [Sublime Text](https://www.sublimetext.com/). The song is only displayed if Spotify is not paused/stopped.
+This plugin connects to your [Spotify](https://www.spotify.com/) account and polls for the current track. It then displays the `track` in the `status bar` of [Sublime Text](https://www.sublimetext.com/). The track is only displayed if Spotify is not paused/stopped.
 
 It is possible to Enable/Disable the plugin and also change the polling interval.
 

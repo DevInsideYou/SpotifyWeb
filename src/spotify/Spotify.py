@@ -50,7 +50,7 @@ class Spotify:
 
       def try_side_effect_current_track_name(valid_token):
         try:
-          self.__side_effect(client.currently_playing_track_name(valid_token, settings_manager))
+          self.__side_effect(client.currently_playing_track(valid_token, settings_manager))
         except Exception as e:
           self.__side_effect(str(e))
 
@@ -72,7 +72,7 @@ class Spotify:
         except:
           side_effect_error()
 
-      def side_effect_error():  
+      def side_effect_error():
         self.__side_effect(
           "SpotifyWeb could not get the authorization token from Spotify. "
           "Another tab should have opened in your browser for you to try to login again. "

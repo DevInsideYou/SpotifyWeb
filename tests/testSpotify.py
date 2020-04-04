@@ -22,7 +22,7 @@ class TestSpotify(unittest.TestCase):
       def get_cached_token(self):
         return "some fake token"
 
-      def currently_playing_track_name(self, token, settings_manager):
+      def currently_playing_track(self, token, settings_manager):
         return "some track name"
 
     client = FakeClient()
@@ -52,7 +52,7 @@ class TestSpotify(unittest.TestCase):
       def get_fresh_token(self, spotify_response_code):
         return "some fake token"
 
-      def currently_playing_track_name(self, token, settings_manager):
+      def currently_playing_track(self, token, settings_manager):
         return "some track name"
 
     client = FakeClient(redirect_port = 1337)
@@ -67,7 +67,7 @@ class TestSpotify(unittest.TestCase):
 
     def send_oauth2_request(oauth2_url):
       self.assertEqual(oauth2_url, "some url")
-      
+
     def get_redirect_response(send_oauth2_request, oauth2_url, redirect_port, handle, available_duration_for_login_in_seconds):
       self.assertEqual(oauth2_url, "some url")
       self.assertEqual(redirect_port, 1337)
@@ -78,12 +78,12 @@ class TestSpotify(unittest.TestCase):
     spotify.run_once(client, send_oauth2_request, get_redirect_response, settings_manager)
     self.assertEqual(actual, "some track name")
 
-  def test_if_currently_playing_track_name_raises_an_exception_the_message_should_be_delegated_to_the_side_effect_function(self):
+  def test_if_currently_playing_track_raises_an_exception_the_message_should_be_delegated_to_the_side_effect_function(self):
     class FakeClient:
       def get_cached_token(self):
         return "some fake token"
 
-      def currently_playing_track_name(self, token, settings_manager):
+      def currently_playing_track(self, token, settings_manager):
         raise Exception("exception message")
 
     client = FakeClient()
